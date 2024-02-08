@@ -55,6 +55,22 @@ class MainWindow(QMainWindow):
         self.map_ll = (long, lat)
         self.refresh_map()
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_PageUp and self.map_zoom < 17:
+            self.map_zoom += 1
+        if event.key() == Qt.Key_PageDown and self.map_zoom > 0:
+            self.map_zoom -= 1
+        if event.key() == Qt.Key_Left:
+            self.map_ll[0] -= self.delta
+        if event.key() == Qt.Key_Right:
+            self.map_ll[0] += self.delta
+        if event.key() == Qt.Key_Up:
+            self.map_ll[1] += self.delta
+        if event.key() == Qt.Key_Down:
+            self.map_ll[1] -= self.delta
+        self.refresh_map()
+
+
 app = QApplication(sys.argv)
 main_window = MainWindow()
 main_window.show()
